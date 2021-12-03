@@ -203,7 +203,7 @@ namespace DataLayer
 
         public void VoegVoetbaltruitjeToe(Voetbaltruitje truitje)
         {
-            string query = "INSERT INTO dbo.Klant (Maat, Seizoen, Prijs, Versie, " +
+            string query = "INSERT INTO dbo.Truitje (Maat, Seizoen, Prijs, Versie, " +
                 "Thuis, Ploeg, Competitie) VALUES(@Maat, @Seizoen, @Prijs, @Versie, " +
                 "@Thuis, @Ploeg, @Competitie)";
             SqlConnection conn = getConnection();
@@ -240,4 +240,4 @@ namespace DataLayer
         }
     }
     }
-}
+

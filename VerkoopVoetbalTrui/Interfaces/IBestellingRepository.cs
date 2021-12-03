@@ -12,9 +12,16 @@ namespace BusinessLayer.Interfaces
         void VoegBestellingToe(Bestelling bestelling);
         bool BestaatBestelling(Bestelling bestelling);
         bool BestaatBestelling(int bestellingId);
-        IReadOnlyList<Bestelling> GeefBestellingen(int id);
+        IReadOnlyList<Bestelling> GeefBestellingen();
         Bestelling GeefBestelling(int bestellingId);
         void VerwijderBestelling(Bestelling bestelling);
         void UpdateBestelling(Bestelling bestelling);
+        Bestelling GeefBestellingVanKlant(Klant klant);
+        Bestelling GeefBestellingVanKlant(int klantId);
+        bool BestaatKlant(int klantId);
+        bool BestaatKlant(Klant klant);
+        Dictionary<Voetbaltruitje, int> GeefVoetbaltruiVanBestelling(int bestellingId);
+        Klant GeefKlant(int klantId);
+        void UpdateBestelTrui(int bestellingId, int truiId, int aantal);
     }
 }

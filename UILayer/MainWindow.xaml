@@ -1,0 +1,36 @@
+﻿<Window x:Class="UILayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UILayer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Toevoegen">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Klant" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="KlantTextBox" Grid.ColumnSpan="2" Margin="5,5,5,5" IsEnabled="False"/>
+                    <Button Grid.Row="0" Grid.Column="3" Content=" Selecteer Klant" Name="SelecteerKlantButton" Margin="5,5,5,5" Click="SelecteerKlant_Click"/>
+                </Grid>
+                
+            </TabItem>
+            
+        </TabControl>
+        
+    </Grid>
+    
+</Window>

@@ -17,23 +17,35 @@ namespace BusinessLayer.Managers
         {
             this.repo = repo;
         }
-
-        public void VerwijderBestelling(Bestelling bestelling)
+        public void VoegBestellingToe(Bestelling bestelling)
         {
             try
             {
-                if (!repo.BestaatBestelling(bestelling))
+                if (repo.BestaatBestelling(bestelling))
                 {
-                    throw new BestellingManagerException("VerwijderBestelling - bestaat niet");
+                    throw new BestellingManagerException("VoegBestellingToe - bestaat al");
                 }
                 else
                 {
-                    repo.VerwijderBestelling(bestelling);
+                    repo.VoegBestellingToe(bestelling);
                 }
             }
             catch (Exception ex)
             {
-                throw new BestellingManagerException("VerwijderBestelling " + ex);
+                throw new BestellingManagerException("VoegBestellingToe " + ex);
+            }
+        }
+        IReadOnlyList<Bestelling> GeefBestellingen()
+        {
+            try
+            {
+                
+                return repo.GeefBestellingen();
+                
+            }
+            catch (Exception ex)
+            {
+                throw new BestellingManagerException("GeefBestellingen " + ex);
             }
         }
         public Bestelling GeefBestelling(int bestellingId)
@@ -54,6 +66,24 @@ namespace BusinessLayer.Managers
                 throw new BestellingManagerException("GeefBestelling " + ex);
             }
         }
+        public void VerwijderBestelling(Bestelling bestelling)
+        {
+            try
+            {
+                if (!repo.BestaatBestelling(bestelling))
+                {
+                    throw new BestellingManagerException("VerwijderBestelling - bestaat niet");
+                }
+                else
+                {
+                    repo.VerwijderBestelling(bestelling);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new BestellingManagerException("VerwijderBestelling " + ex);
+            }
+        }
         public void UpdateBestelling(Bestelling bestelling)
         {
             try
@@ -72,23 +102,66 @@ namespace BusinessLayer.Managers
                 throw new BestellingManagerException("UpdateBestelling " + ex);
             }
         }
-        public void VoegBestellingToe(Bestelling bestelling)
+        Bestelling GeefBestellingVanKlant(Klant klant)
         {
             try
             {
-                if (repo.BestaatBestelling(bestelling))
+                if (!repo.BestaatKlant(klant))
                 {
-                    throw new BestellingManagerException("VoegBestellingToe - bestaat al");
+                    throw new BestellingManagerException("GeefBestellingVanKlant - bestaat niet");
                 }
                 else
                 {
-                    repo.VoegBestellingToe(bestelling);
+                    return repo.GeefBestellingVanKlant(klant);
                 }
             }
             catch (Exception ex)
             {
-                throw new BestellingManagerException("VoegBestellingToe " + ex);
+                throw new BestellingManagerException("GeefBestellingVanKlant " + ex);
             }
         }
+        Bestelling GeefBestellingVanKlant(int klantId)
+        {
+            try
+            {
+                if (!repo.BestaatKlant(klantId))
+                {
+                    throw new BestellingManagerException("GeefBestellingVanKlant - bestaat niet");
+                }
+                else
+                {
+                    return repo.GeefBestellingVanKlant(klantId);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new BestellingManagerException("GeefBestellingVanKlant " + ex);
+            }
+        }
+        void UpdateBestelTrui(int bestellingId, int truiId, int aantal)
+        {
+            try
+            {
+                if (!repo.BestaatBestelling(bestellingId)) throw new BestellingManagerException("UpdateBestelTrui - BestelingID bestaat niet");
+                repo.UpdateBestelTrui(bestellingId, truiId, aantal);
+            }
+            catch (Exception ex)
+            {
+                throw new BestellingManagerException("UpdateBestelTrui " + ex);
+            }
+        }
+        public Klant GeefKlant(int klantId)
+        {
+            try
+            {
+                if (!repo.BestaatKlant(klantId)) throw new BestellingManagerException("GeefKlant - klant bestaat niet");
+                return repo.GeefKlant(klantId);
+            }
+            catch (Exception ex)
+            {
+                throw new BestellingManagerException("GeefKlant " + ex);
+            }
+        }
+
     }
 }
