@@ -35,7 +35,7 @@ namespace BusinessLayer.Managers
                 throw new ClubManagerException("VoegClubToe " + ex);
             }
         }
-        IReadOnlyList<Club> GeefClubs()
+        public IReadOnlyList<Club> GeefClubs()
         {
             try
             {

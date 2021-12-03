@@ -24,5 +24,38 @@ namespace UILayer
         {
             InitializeComponent();
         }
+
+        private void PlaatsBestellingButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SelecteerTruitjeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SelecteerKlantButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void SelecteerKlantAanpassen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ZoekBestellingAanpassenButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void MenuItemUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

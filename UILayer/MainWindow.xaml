@@ -24,9 +24,72 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Content="Klant" VerticalAlignment="Center" Margin="5,0,5,0"/>
                     <TextBox Grid.Row="0" Grid.Column="1" x:Name="KlantTextBox" Grid.ColumnSpan="2" Margin="5,5,5,5" IsEnabled="False"/>
-                    <Button Grid.Row="0" Grid.Column="3" Content=" Selecteer Klant" Name="SelecteerKlantButton" Margin="5,5,5,5" Click="SelecteerKlant_Click"/>
+                    <Button Grid.Row="0" Grid.Column="3" Content=" Selecteer Klant" Name="SelecteerKlantButton" Margin="5,5,5,5" Click="SelecteerKlantButton_Click"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Prijs" VerticalAlignment="Center" Margin="5,5,5,5"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="PrijsTextBox"  Margin="5,5,5,5" IsEnabled="False"/>
+                    <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="False" Name="BetaaldCheckBox" Content="Betaald" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                    <Button Grid.Row="1" Grid.Column="3" Content=" Selecteer Truitje" Name="SelecteerTruitjeButton" Margin="5,5,5,5" Click="SelecteerTruitjeButton_Click"/>
+
+                    <DataGrid Grid.Row="2" Grid.ColumnSpan="4" Name="BestellingTruitjes" SelectionUnit="Cell" SelectionMode="Single"/>
+
+                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Content=" Plaats Bestelling " Name="PlaatsBestellingButton" Margin="5,5,5,5" Click="PlaatsBestellingButton_Click" IsEnabled="false"/>
                 </Grid>
-                
+            </TabItem>
+            <TabItem Header="Aanpassen">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Bestelling ID" VerticalAlignment="Center" Margin="5"/>
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Name="BestellingIdAanpassenTextBox" Margin="5" IsEnabled="true"/>
+                        <Label Grid.Column="1" Content="Startdatum" VerticalAlignment="Center" Margin="5"/>
+                        <DatePicker Grid.Column="2" Name="StartdatumDatePicker" HorizontalAlignment="Left"
+                                    VerticalAlignment="Center" SelectedDateFormat="Short" IsTodayHighlighted="True"/>
+                        <Label Grid.Column="3" Content="Einddatum" VerticalAlignment="Center" Margin="5"/>
+                        <DatePicker Grid.Column="4" Name="EinddatumDatePicker" HorizontalAlignment="Left"
+                                    VerticalAlignment="Center" SelectedDateFormat="Short" IsTodayHighlighted="True"/>
+                    </Grid>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Klant" VerticalAlignment="Center" Margin="5"/>
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Name="KlantAanpassenTextBox" Margin="5" IsEnabled="False" />
+                        <Button Grid.Column="1" Content=" Selecteer Klant " Name="SelecteerKlantAanpassenButton" Margin="5" 
+                                Click="SelecteerKlantAanpassen_Click" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <Button Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Content=" Zoek bestelling " Name="ZoekBestellingAanpassenButton"
+                            Margin="5" Click="ZoekBestellingAanpassenButton_Click" HorizontalAlignment="right"/>
+
+                    <ListBox Grid.Row="3" Grid.ColumnSpan="3" Name="BestellingenAanpassen" Margin="5">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Delete" Click="MenuItemDelete_Click"></MenuItem>
+                                <MenuItem Header="Update" Click="MenuItemUpdate_Click"></MenuItem>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                    </ListBox>
+                </Grid>
             </TabItem>
             
         </TabControl>
