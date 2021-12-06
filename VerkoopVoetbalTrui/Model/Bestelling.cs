@@ -20,7 +20,10 @@ namespace BusinessLayer.Model
 
         public DateTime? Tijdstip { get; private set; }
         public Dictionary<Voetbaltruitje, int> TruiBestelling = new Dictionary<Voetbaltruitje, int>();
+        public Bestelling()
+        {
 
+        }
         public Bestelling(int bestellingId, DateTime? tijdstip) : this(tijdstip)
         {
             ZetBestellingId(bestellingId);
@@ -74,7 +77,7 @@ namespace BusinessLayer.Model
 
             foreach (KeyValuePair<Voetbaltruitje, int> element in TruiBestelling)
             {
-                prijs += element.Key.Prijs;
+                prijs += element.Key.Prijs * element.Value;
             }
             return prijs -= prijs / 100 * korting;
         }
@@ -154,6 +157,10 @@ namespace BusinessLayer.Model
         {
             if (product == null) throw new BestellingException("De bestellingslijst mag niet leeg zijn");
             TruiBestelling = product;
+        }
+        public override string ToString()
+        {
+            return "Bestelling: " + BestellingId + ", " + Betaald + ", " + Tijdstip + ", klant:  " +Klant.KlantId + ", "+ Klant.Naam+ ", "+ Klant.Adres ;
         }
     }
 }

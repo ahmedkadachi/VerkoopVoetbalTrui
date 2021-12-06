@@ -39,7 +39,10 @@ namespace BusinessLayer.Model
             if (id <= 0) throw new ClubException("De ID mag niet kleiner dan 0 zijn");
             ClubId = id;
         }
-
+        public override string ToString()
+        {
+            return  Ploegnaam + " " + Competitie;
+        }
         //public override bool Equals(object obj)
         //{
         //    return base.Equals(obj);

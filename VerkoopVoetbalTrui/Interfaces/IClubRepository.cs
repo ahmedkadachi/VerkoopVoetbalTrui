@@ -13,6 +13,8 @@ namespace BusinessLayer.Interfaces
         bool BestaatClub(int clubId);
         bool BestaatClub(Club club);
         IReadOnlyList<Club> GeefClubs();
+        IReadOnlyList<string> GeefCompetities();
+        IReadOnlyList<string> GeefClubs(string competitie);
         Club GeefClub(int clubId);
         void VerwijderClub(Club club);
         void UpdateClub(Club club);

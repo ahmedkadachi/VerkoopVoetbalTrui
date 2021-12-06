@@ -16,7 +16,7 @@ namespace BusinessLayer.Interfaces
         Bestelling GeefBestelling(int bestellingId);
         void VerwijderBestelling(Bestelling bestelling);
         void UpdateBestelling(Bestelling bestelling);
-        Bestelling GeefBestellingVanKlant(Klant klant);
+        IReadOnlyList<Bestelling> GeefBestellingenVanKlant(Klant klant);
         Bestelling GeefBestellingVanKlant(int klantId);
         bool BestaatKlant(int klantId);
         bool BestaatKlant(Klant klant);

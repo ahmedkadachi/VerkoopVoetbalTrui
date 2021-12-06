@@ -162,7 +162,7 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-        public Bestelling GeefBestellingVanKlant(Klant klant)
+        public IReadOnlyList<Bestelling> GeefBestellingenVanKlant(Klant klant)
         {
             string queryTrui = "SELECT * FROM dbo.Bestelling WHERE KlantId=@KlantId";
             SqlConnection conn = getConnection();
@@ -170,21 +170,23 @@ namespace DataLayer
             {
                 try
                 {
+                    List<Bestelling> bestellingen = new List<Bestelling>();
                     conn.Open();
                     command.Parameters.AddWithValue("@KlantId", klant.KlantId);
                     IDataReader dataReader = command.ExecuteReader();
-                    dataReader.Read();
-                    Dictionary<Voetbaltruitje, int> producten = GeefVoetbaltruiVanBestelling((int)dataReader["Id"]);
+                    while (dataReader.Read())
+                    {
+                        Dictionary<Voetbaltruitje, int> producten = GeefVoetbaltruiVanBestelling((int)dataReader["Id"]);
 
-                    Bestelling b = new Bestelling((int)dataReader["Id"], GeefKlant((int)dataReader["KlantId"]),
-                        (DateTime)dataReader["Datum"], (double)dataReader["Prijs"], Convert.ToBoolean(dataReader["Betaald"]), producten);
-
+                        bestellingen.Add(new Bestelling((int)dataReader["Id"], GeefKlant((int)dataReader["KlantId"]),
+                            (DateTime)dataReader["Datum"], (double)dataReader["Prijs"], Convert.ToBoolean(dataReader["Betaald"]), producten));
+                    }
                     dataReader.Close();
-                    return b;
+                    return bestellingen;
                 }
                 catch (Exception ex)
                 {
-                    throw new BestellingDatabeheerException("GeefBestellingVanKlant niet gelukt", ex);
+                    throw new BestellingDatabeheerException("GeefBestellingenVanKlant niet gelukt", ex);
                 }
                 finally
                 {

@@ -13,6 +13,14 @@ namespace BusinessLayer.Interfaces
         bool BestaatVoetbaltruitje(Voetbaltruitje truitje);
         bool BestaatVoetbaltruitje(int voetbaltruitjeId);
         IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjes();
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesID(int id);
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesMaat(string maat);
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesSeizoen(string seizoen);
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesPrijs(double prijs);
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesVersie(string versie);
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesThuis(bool thuis);
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesPloeg(string ploeg);
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesCompetitie(string competitie);
         Voetbaltruitje GeefVoetbaltruitje(int voetbaltruitjeId);
         void VerwijderVoetbaltruitje(Voetbaltruitje truitje);
         void UpdateVoetbaltruitje(Voetbaltruitje truitje);

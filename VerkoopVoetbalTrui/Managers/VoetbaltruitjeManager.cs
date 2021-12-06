@@ -36,7 +36,7 @@ namespace BusinessLayer.Managers
                 throw new VoetbaltruitjeManagerException("VoegTruitjeToe " + ex);
             }
         }
-        IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjes()
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjes()
         {
             try
             {
@@ -47,6 +47,95 @@ namespace BusinessLayer.Managers
                 throw new VoetbaltruitjeManagerException("GeefVoetbaltruitjes " + ex);
             }
         }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesID(int id)
+        {
+            try
+            {
+                return repo.GeefVoetbaltruitjesID(id);
+            }
+            catch (Exception ex)
+            {
+                throw new VoetbaltruitjeManagerException("GeefVoetbaltruitjesID " + ex);
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesMaat(string maat)
+        {
+            try
+            {
+                return repo.GeefVoetbaltruitjesMaat(maat);
+            }
+            catch (Exception ex)
+            {
+                throw new VoetbaltruitjeManagerException("GeefVoetbaltruitjesMaat " + ex);
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesSeizoen(string seizoen)
+        {
+            try
+            {
+                return repo.GeefVoetbaltruitjesSeizoen(seizoen);
+            }
+            catch (Exception ex)
+            {
+                throw new VoetbaltruitjeManagerException("GeefVoetbaltruitjesSeizoen " + ex);
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesPrijs(double prijs)
+        {
+            try
+            {
+                return repo.GeefVoetbaltruitjesPrijs(prijs);
+            }
+            catch (Exception ex)
+            {
+                throw new VoetbaltruitjeManagerException("GeefVoetbaltruitjesPrijs " + ex);
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesVersie(string versie)
+        {
+            try
+            {
+                return repo.GeefVoetbaltruitjesVersie(versie);
+            }
+            catch (Exception ex)
+            {
+                throw new VoetbaltruitjeManagerException("GeefVoetbaltruitjesVersie " + ex);
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesThuis(bool thuis)
+        {
+            try
+            {
+                return repo.GeefVoetbaltruitjesThuis(thuis);
+            }
+            catch (Exception ex)
+            {
+                throw new VoetbaltruitjeManagerException("GeefVoetbaltruitjesThuis " + ex);
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesPloeg(string ploeg)
+        {
+            try
+            {
+                return repo.GeefVoetbaltruitjesPloeg(ploeg);
+            }
+            catch (Exception ex)
+            {
+                throw new VoetbaltruitjeManagerException("GeefVoetbaltruitjesThuis " + ex);
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesCompetitie(string competitie)
+        {
+            try
+            {
+                return repo.GeefVoetbaltruitjesCompetitie(competitie);
+            }
+            catch (Exception ex)
+            {
+                throw new VoetbaltruitjeManagerException("GeefVoetbaltruitjesCompetitie " + ex);
+            }
+        }
+
         public Voetbaltruitje GeefVoetbaltruitje(int voetbaltruitjeId)
         {
             try

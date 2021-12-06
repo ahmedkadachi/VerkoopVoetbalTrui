@@ -68,5 +68,9 @@ namespace BusinessLayer.Model
             if (seizoen == null || seizoen == "") throw new TruiException("De naam mag niet leeg zijn");
             Seizoen = seizoen;
         }
+        public override string ToString()
+        {
+            return  Id + " - " + Club.Ploegnaam + " - " + Seizoen +" - " + Prijs + " - " +Kledingmaat.ToString() +  " - " + ClubSet.Thuis + " - " + ClubSet.Versie;
+        }
     }
 }

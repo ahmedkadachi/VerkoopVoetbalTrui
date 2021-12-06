@@ -66,6 +66,28 @@ namespace BusinessLayer.Managers
                 throw new KlantManagerException("GeefKlant " + ex);
             }
         }
+        public Klant GeefKlantNaam(string klantNaam)
+        {
+            try
+            {
+                return repo.GeefKlantNaam(klantNaam);
+            }
+            catch (Exception ex)
+            {
+                throw new KlantManagerException("GeefKlantNaam " + ex);
+            }
+        }
+        public Klant GeefKlantAdres(string klantAdres)
+        {
+            try
+            {
+                return repo.GeefKlantAdres(klantAdres);
+            }
+            catch (Exception ex)
+            {
+                throw new KlantManagerException("GeefKlantNaam " + ex);
+            }
+        }
 
         public void UpdateKlant(Klant klant)
         {

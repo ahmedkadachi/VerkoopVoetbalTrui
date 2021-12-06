@@ -14,6 +14,8 @@ namespace BusinessLayer.Interfaces
         bool BestaatKlant(int klantId);
         IReadOnlyList<Klant> GeefKlanten();
         Klant GeefKlant(int klantId);
+        Klant GeefKlantNaam(string klantNaam);
+        Klant GeefKlantAdres(string klantAdres);
         void VerwijderKlant(Klant klant);
         void UpdateKlant(Klant klant);
     }

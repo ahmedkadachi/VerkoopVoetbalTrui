@@ -28,6 +28,13 @@ namespace BusinessLayer.Model
             if (thuis == null) throw new ClubSetException("Thuis mag niet leeg zijn");
             Thuis = thuis;
         }
+        public override string ToString()
+        {
+            string thuis = "";
+            if (Thuis) thuis = "Thuis";
+            if (!Thuis) thuis = "Uit";
+            return thuis + " " + Versie;
+        }
     }
 
 }

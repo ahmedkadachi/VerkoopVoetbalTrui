@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BusinessLayer.Managers;
+using BusinessLayer.Model;
 
 namespace UILayer
 {
@@ -20,6 +22,9 @@ namespace UILayer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private BestellingManager bestellingManager;
+        private Bestelling bestelling;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,7 +42,16 @@ namespace UILayer
 
         private void SelecteerKlantButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SelecteerKlant w = new SelecteerKlant();
+            if(w.ShowDialog() == true)
+            {
+                bestelling = new Bestelling();
+                bestelling.ZetKlant(w.Klant);
+                PrijsTextBox.Text = bestelling.Kostprijs().ToString();
+                KlantTextBox.Text = w.Klant.ToString();
+                MessageBox.Show(w.Klant.Korting().ToString());
+                //CheckBestelling();
+            }
         }
         private void SelecteerKlantAanpassen_Click(object sender, RoutedEventArgs e)
         {

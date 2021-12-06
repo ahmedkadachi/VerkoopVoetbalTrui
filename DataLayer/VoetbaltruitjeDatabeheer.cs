@@ -138,6 +138,271 @@ namespace DataLayer
             }
         }
 
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesID(int id)
+        {
+            string query = "SELECT * FROM dbo.Truitje WHERE Id=@Id";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    List<Voetbaltruitje> truitjes = new List<Voetbaltruitje>();
+                    conn.Open();
+                    command.Parameters.AddWithValue("@Id", id);
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Club c = new Club((string)dataReader["Competitie"], (string)dataReader["Ploeg"]);
+                        ClubSet cs = new ClubSet(Convert.ToBoolean(dataReader["Thuis"]), (int)dataReader["Versie"]);
+                        var maat = (Kledingmaat)Enum.Parse(typeof(Kledingmaat), (string)dataReader["Maat"]);
+                        Voetbaltruitje v = new Voetbaltruitje((int)dataReader["Id"], c, (string)dataReader["Seizoen"], (double)dataReader["Prijs"], maat, cs);
+                        truitjes.Add(v);
+                    }
+                    dataReader.Close();
+                    return truitjes;
+                }
+                catch (Exception ex)
+                {
+                    throw new VoetbaltruitjeDatabeheerException("GeefVoetbaltrui niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesMaat(string maatt)
+        {
+            string query = "SELECT * FROM dbo.Truitje WHERE Maat=@maat";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    List<Voetbaltruitje> truitjes = new List<Voetbaltruitje>();
+                    conn.Open();
+                    command.Parameters.AddWithValue("@maat", maatt);
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Club c = new Club((string)dataReader["Competitie"], (string)dataReader["Ploeg"]);
+                        ClubSet cs = new ClubSet(Convert.ToBoolean(dataReader["Thuis"]), (int)dataReader["Versie"]);
+                        var maat = (Kledingmaat)Enum.Parse(typeof(Kledingmaat), (string)dataReader["Maat"]);
+                        Voetbaltruitje v = new Voetbaltruitje((int)dataReader["Id"], c, (string)dataReader["Seizoen"], (double)dataReader["Prijs"], maat, cs);
+                        truitjes.Add(v);
+                    }
+                    dataReader.Close();
+                    return truitjes;
+                }
+                catch (Exception ex)
+                {
+                    throw new VoetbaltruitjeDatabeheerException("GeefVoetbaltrui niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesSeizoen(string seizoen)
+        {
+            string query = "SELECT * FROM dbo.Truitje WHERE Seizoen=@seizoen";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    List<Voetbaltruitje> truitjes = new List<Voetbaltruitje>();
+                    conn.Open();
+                    command.Parameters.AddWithValue("@seizoen", seizoen);
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Club c = new Club((string)dataReader["Competitie"], (string)dataReader["Ploeg"]);
+                        ClubSet cs = new ClubSet(Convert.ToBoolean(dataReader["Thuis"]), (int)dataReader["Versie"]);
+                        var maat = (Kledingmaat)Enum.Parse(typeof(Kledingmaat), (string)dataReader["Maat"]);
+                        Voetbaltruitje v = new Voetbaltruitje((int)dataReader["Id"], c, (string)dataReader["Seizoen"], (double)dataReader["Prijs"], maat, cs);
+                        truitjes.Add(v);
+                    }
+                    dataReader.Close();
+                    return truitjes;
+                }
+                catch (Exception ex)
+                {
+                    throw new VoetbaltruitjeDatabeheerException("GeefVoetbaltrui niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesPrijs(double prijs)
+        {
+            string query = "SELECT * FROM dbo.Truitje WHERE Prijs=@prijs";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    List<Voetbaltruitje> truitjes = new List<Voetbaltruitje>();
+                    conn.Open();
+                    command.Parameters.AddWithValue("@prijs", prijs);
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Club c = new Club((string)dataReader["Competitie"], (string)dataReader["Ploeg"]);
+                        ClubSet cs = new ClubSet(Convert.ToBoolean(dataReader["Thuis"]), (int)dataReader["Versie"]);
+                        var maat = (Kledingmaat)Enum.Parse(typeof(Kledingmaat), (string)dataReader["Maat"]);
+                        Voetbaltruitje v = new Voetbaltruitje((int)dataReader["Id"], c, (string)dataReader["Seizoen"], (double)dataReader["Prijs"], maat, cs);
+                        truitjes.Add(v);
+                    }
+                    dataReader.Close();
+                    return truitjes;
+                }
+                catch (Exception ex)
+                {
+                    throw new VoetbaltruitjeDatabeheerException("GeefVoetbaltrui niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesVersie(string versie)
+        {
+            string query = "SELECT * FROM dbo.Truitje WHERE Versie=@versie";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    List<Voetbaltruitje> truitjes = new List<Voetbaltruitje>();
+                    conn.Open();
+                    command.Parameters.AddWithValue("@versie", versie);
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Club c = new Club((string)dataReader["Competitie"], (string)dataReader["Ploeg"]);
+                        ClubSet cs = new ClubSet(Convert.ToBoolean(dataReader["Thuis"]), (int)dataReader["Versie"]);
+                        var maat = (Kledingmaat)Enum.Parse(typeof(Kledingmaat), (string)dataReader["Maat"]);
+                        Voetbaltruitje v = new Voetbaltruitje((int)dataReader["Id"], c, (string)dataReader["Seizoen"], (double)dataReader["Prijs"], maat, cs);
+                        truitjes.Add(v);
+                    }
+                    dataReader.Close();
+                    return truitjes;
+                }
+                catch (Exception ex)
+                {
+                    throw new VoetbaltruitjeDatabeheerException("GeefVoetbaltrui niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesThuis(bool thuis)
+        {
+            string query = "SELECT * FROM dbo.Truitje WHERE Thuis=@thuis";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    List<Voetbaltruitje> truitjes = new List<Voetbaltruitje>();
+                    conn.Open();
+                    command.Parameters.AddWithValue("@thuis", thuis);
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Club c = new Club((string)dataReader["Competitie"], (string)dataReader["Ploeg"]);
+                        ClubSet cs = new ClubSet(Convert.ToBoolean(dataReader["Thuis"]), (int)dataReader["Versie"]);
+                        var maat = (Kledingmaat)Enum.Parse(typeof(Kledingmaat), (string)dataReader["Maat"]);
+                        Voetbaltruitje v = new Voetbaltruitje((int)dataReader["Id"], c, (string)dataReader["Seizoen"], (double)dataReader["Prijs"], maat, cs);
+                        truitjes.Add(v);
+                    }
+                    dataReader.Close();
+                    return truitjes;
+                }
+                catch (Exception ex)
+                {
+                    throw new VoetbaltruitjeDatabeheerException("GeefVoetbaltrui niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesPloeg(string ploeg)
+        {
+            string query = "SELECT * FROM dbo.Truitje WHERE Ploeg=@ploeg";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    List<Voetbaltruitje> truitjes = new List<Voetbaltruitje>();
+                    conn.Open();
+                    command.Parameters.AddWithValue("@ploeg", ploeg);
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Club c = new Club((string)dataReader["Competitie"], (string)dataReader["Ploeg"]);
+                        ClubSet cs = new ClubSet(Convert.ToBoolean(dataReader["Thuis"]), (int)dataReader["Versie"]);
+                        var maat = (Kledingmaat)Enum.Parse(typeof(Kledingmaat), (string)dataReader["Maat"]);
+                        Voetbaltruitje v = new Voetbaltruitje((int)dataReader["Id"], c, (string)dataReader["Seizoen"], (double)dataReader["Prijs"], maat, cs);
+                        truitjes.Add(v);
+                    }
+                    dataReader.Close();
+                    return truitjes;
+                }
+                catch (Exception ex)
+                {
+                    throw new VoetbaltruitjeDatabeheerException("GeefVoetbaltrui niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesCompetitie(string competitie)
+        {
+            string query = "SELECT * FROM dbo.Truitje WHERE Competitie=@competitie";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    List<Voetbaltruitje> truitjes = new List<Voetbaltruitje>();
+                    conn.Open();
+                    command.Parameters.AddWithValue("@competitie", competitie);
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Club c = new Club((string)dataReader["Competitie"], (string)dataReader["Ploeg"]);
+                        ClubSet cs = new ClubSet(Convert.ToBoolean(dataReader["Thuis"]), (int)dataReader["Versie"]);
+                        var maat = (Kledingmaat)Enum.Parse(typeof(Kledingmaat), (string)dataReader["Maat"]);
+                        Voetbaltruitje v = new Voetbaltruitje((int)dataReader["Id"], c, (string)dataReader["Seizoen"], (double)dataReader["Prijs"], maat, cs);
+                        truitjes.Add(v);
+                    }
+                    dataReader.Close();
+                    return truitjes;
+                }
+                catch (Exception ex)
+                {
+                    throw new VoetbaltruitjeDatabeheerException("GeefVoetbaltrui niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
         public void UpdateVoetbaltruitje(Voetbaltruitje truitje)
         {
             string query = "UPDATE dbo.Truitje SET Maat=@Maat, Seizoen=@Seizoen, Prijs=@Prijs, Versie=@Versie, " +

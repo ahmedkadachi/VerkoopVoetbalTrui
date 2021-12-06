@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Exceptions;
+using BusinessLayer.Interfaces;
+using BusinessLayer.Managers;
 using VerkoopVoetbalTrui;
 
 namespace BusinessLayer.Model
 {
     public class Klant : IKlant
     {
+
         public string Adres { get; private set; }
 
         public int KlantId { get; private set; }

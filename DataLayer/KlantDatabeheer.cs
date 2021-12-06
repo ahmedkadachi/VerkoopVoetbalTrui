@@ -130,6 +130,58 @@ namespace DataLayer
                 }
             }
         }
+        public Klant GeefKlantNaam(string klantNaam)
+        {
+            string query = "SELECT * FROM dbo.Klant WHERE Naam=@Naam";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@Naam", klantNaam);
+                    IDataReader dataReader = command.ExecuteReader();
+                    dataReader.Read();
+                    Klant k = new Klant((int)dataReader["Id"], (string)dataReader["Naam"], (string)dataReader["Adres"]);
+                    dataReader.Close();
+                    return k;
+                }
+                catch (Exception ex)
+                {
+                    throw new KlantDatabeheerException("GeefKlantNaam niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public Klant GeefKlantAdres(string klantAdres)
+        {
+            string query = "SELECT * FROM dbo.Klant WHERE Adres=@Adres";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@Adres", klantAdres);
+                    IDataReader dataReader = command.ExecuteReader();
+                    dataReader.Read();
+                    Klant k = new Klant((int)dataReader["Id"], (string)dataReader["Naam"], (string)dataReader["Adres"]);
+                    dataReader.Close();
+                    return k;
+                }
+                catch (Exception ex)
+                {
+                    throw new KlantDatabeheerException("GeefKlantAdres niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         public void UpdateKlant(Klant klant)
         {

@@ -46,6 +46,28 @@ namespace BusinessLayer.Managers
                 throw new ClubManagerException("GeefClubs " + ex);
             }
         }
+        public IReadOnlyList<string> GeefCompetities()
+        {
+            try
+            {
+                return repo.GeefCompetities();
+            }
+            catch (Exception ex)
+            {
+                throw new ClubManagerException("GeefCompetities " + ex);
+            }
+        }
+        public IReadOnlyList<string> GeefClubs(string competitie)
+        {
+            try
+            {
+                return repo.GeefClubs(competitie);
+            }
+            catch (Exception ex)
+            {
+                throw new ClubManagerException("GeefClubs " + ex);
+            }
+        }
         public Club GeefClub(int clubId)
         {
             try

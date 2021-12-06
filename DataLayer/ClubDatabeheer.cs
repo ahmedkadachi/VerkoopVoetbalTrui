@@ -100,6 +100,35 @@ namespace DataLayer
                 }
             }
         }
+        public IReadOnlyList<string> GeefCompetities()
+        {
+            string query = "SELECT DISTINCT Competitie from dbo.Club";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    List<string> competities = new List<string>();
+                    conn.Open();
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        string c =(string)dataReader["Competitie"];
+                        competities.Add(c);
+                    }
+                    dataReader.Close();
+                    return competities;
+                }
+                catch (Exception ex)
+                {
+                    throw new ClubDatabeheerException("GeefCompetities niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         public IReadOnlyList<Club> GeefClubs()
         {
@@ -115,6 +144,36 @@ namespace DataLayer
                     while (dataReader.Read())
                     {
                         Club c = new Club((string)dataReader["Competitie"], (string)dataReader["Ploeg"]);
+                        clubs.Add(c);
+                    }
+                    dataReader.Close();
+                    return clubs;
+                }
+                catch (Exception ex)
+                {
+                    throw new ClubDatabeheerException("GeefClubs niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public IReadOnlyList<string> GeefClubs(string competitie)
+        {
+            string query = "SELECT * FROM dbo.Club WHERE Competitie=@competitie";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    List<string> clubs = new List<string>();
+                    conn.Open();
+                    command.Parameters.AddWithValue("@competitie", competitie);
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        string c = new string((string)dataReader["Ploeg"]);
                         clubs.Add(c);
                     }
                     dataReader.Close();

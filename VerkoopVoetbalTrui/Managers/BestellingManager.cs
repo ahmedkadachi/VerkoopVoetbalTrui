@@ -102,7 +102,7 @@ namespace BusinessLayer.Managers
                 throw new BestellingManagerException("UpdateBestelling " + ex);
             }
         }
-        Bestelling GeefBestellingVanKlant(Klant klant)
+        public IReadOnlyList<Bestelling> GeefBestellingenVanKlant(Klant klant)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace BusinessLayer.Managers
                 }
                 else
                 {
-                    return repo.GeefBestellingVanKlant(klant);
+                    return repo.GeefBestellingenVanKlant(klant);
                 }
             }
             catch (Exception ex)
@@ -120,7 +120,7 @@ namespace BusinessLayer.Managers
                 throw new BestellingManagerException("GeefBestellingVanKlant " + ex);
             }
         }
-        Bestelling GeefBestellingVanKlant(int klantId)
+        public Bestelling GeefBestellingVanKlant(int klantId)
         {
             try
             {
