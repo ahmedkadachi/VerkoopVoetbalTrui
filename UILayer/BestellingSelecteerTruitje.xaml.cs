@@ -32,6 +32,8 @@ namespace UILayer
         private static IVoetbaltruitjeRepository voetbaltruitjeRepo = new VoetbaltruitjeDatabeheer(ConnectionString);
         private VoetbaltruitjeManager Manager = new VoetbaltruitjeManager(voetbaltruitjeRepo);
 
+        public Voetbaltruitje voetbaltruitje { get; private set; }
+
         public BestellingSelecteerTruitje()
         {
             InitializeComponent();
@@ -121,7 +123,22 @@ namespace UILayer
                     SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesPrijs(double.Parse(PrijsTextBox.Text));
                 }
 
+                if (!string.IsNullOrEmpty(PrijsTextBox.Text))
+                {
+                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesPrijs(double.Parse(PrijsTextBox.Text));
+                }
 
+                if (ThuisCheckBox.IsChecked == true)
+                {
+                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesThuis(true);
+                }else if(UitCheckBox.IsChecked == true)
+                {
+                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesThuis(false);
+                }
+                if (!string.IsNullOrEmpty(VersieTextBox.Text))
+                {
+                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesVersie(VersieTextBox.Text);
+                }
 
             }
             catch (Exception ex)
@@ -132,7 +149,16 @@ namespace UILayer
 
         private void SelecteerTruitjeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                voetbaltruitje = (Voetbaltruitje)SelecteerTruitjes.SelectedItem;
+                DialogResult = true;
+                Close();
+            }
+            catch
+            {
+                MessageBox.Show("Gelieve een trui te selecteren");
+            }
         }
 
         private void SelecteerCompetitieComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

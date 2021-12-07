@@ -59,6 +59,6 @@
         <ListBox Grid.Row="4" Grid.ColumnSpan="4" Name="SelecteerTruitjes"  SelectionMode="Single"/>
 
         <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Content=" Selecteer Truitje " Name="SelecteerTruitjeButton" 
-                Margin="5,5,5,5" Click="SelecteerTruitjeButton_Click" IsEnabled="false"/>
+                Margin="5,5,5,5" Click="SelecteerTruitjeButton_Click" />
     </Grid>
 </Window>
