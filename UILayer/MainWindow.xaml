@@ -40,7 +40,7 @@
                         </DataGrid.ContextMenu>
                     </DataGrid>
                     
-                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Content=" Plaats Bestelling " Name="PlaatsBestellingButton" Margin="5,5,5,5" Click="PlaatsBestellingButton_Click" IsEnabled="false"/>
+                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Content=" Plaats Bestelling " Name="PlaatsBestellingButton" Margin="5,5,5,5" Click="PlaatsBestellingButton_Click" />
                 </Grid>
             </TabItem>
             <TabItem Header="Aanpassen">

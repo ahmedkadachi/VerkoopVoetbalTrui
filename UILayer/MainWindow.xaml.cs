@@ -15,8 +15,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BusinessLayer.Interfaces;
 using BusinessLayer.Managers;
 using BusinessLayer.Model;
+using DataLayer;
 
 namespace UILayer
 {
@@ -25,7 +27,9 @@ namespace UILayer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private BestellingManager bestellingManager;
+        private static string ConnectionString = @"Data Source=DESKTOP-R7T8D5F\SQLEXPRESS;Initial Catalog=VerkoopVoetbalTrui;Integrated Security=True";
+        private static IBestellingRepository BestelRepo = new BestellingDatabeheer(ConnectionString);
+        private BestellingManager bestellingManager = new BestellingManager(BestelRepo);
         private Bestelling bestelling;
         private ObservableCollection<TruitjeData> truitjes = new ObservableCollection<TruitjeData>();
 
@@ -50,7 +54,38 @@ namespace UILayer
 
         private void PlaatsBestellingButton_Click(object sender, RoutedEventArgs e)
         {
-
+            //checks
+            //klanten niet leeg
+            if (!string.IsNullOrEmpty(KlantTextBox.Text))
+            {
+                if(BestellingTruitjes.Items.Count >0)
+                {
+                    try
+                    {
+                        if (BetaaldCheckBox.IsChecked == true) {
+                            bestelling.ZetBetaald(true);
+                        } else {
+                            bestelling.ZetBetaald(false);
+                        }
+                        DateTime nu = DateTime.Now;
+                        bestelling.ZetTijdstip(nu);
+                        bestelling.ZetPrijs(double.Parse(PrijsTextBox.Text));
+                        bestellingManager.VoegBestellingToe(bestelling);
+                    }catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Gelieve truitjes in uw bestelling toe te voegen");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Gelieve eerst een klant te kiezen");
+            }
         }
 
         private void SelecteerTruitjeButton_Click(object sender, RoutedEventArgs e)
@@ -72,7 +107,6 @@ namespace UILayer
         private void TruitjeData_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             TruitjeData t = (TruitjeData)sender;
-            MessageBox.Show(bestelling.GeefProducten().Count().ToString());
             int delta = t.Aantal - bestelling.GeefProducten()[t.Truitje];
             if(delta < 0)
             {
@@ -95,7 +129,6 @@ namespace UILayer
                 bestelling.ZetKlant(w.Klant);
                 PrijsTextBox.Text = bestelling.Kostprijs().ToString();
                 KlantTextBox.Text = w.Klant.ToString();
-                MessageBox.Show(w.Klant.Korting().ToString());
                 //CheckBestelling();
             }
         }

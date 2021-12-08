@@ -125,7 +125,7 @@ namespace BusinessLayer.Model
             BestellingId = id;
         }
 
-        public void ZetBetaald(bool betaald = true)
+        public void ZetBetaald(bool betaald)
         {
             if (betaald == null) throw new BestellingException("De betaald status mag niet leeg zijn");
             Betaald = betaald;

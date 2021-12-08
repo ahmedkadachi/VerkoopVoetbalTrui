@@ -266,8 +266,9 @@ namespace DataLayer
 
         public void VoegBestellingToe(Bestelling bestelling)
         {
-            string querybestelling = "INSERT INTO dbo.Bestelling(Datum,Prijs,Betaald,KlantId)" +
-                "VALUES(@Datum,@Prijs,@Betaald,@KlantId)";
+            int bestellingID;
+            string querybestelling = "INSERT INTO dbo.Bestelling(Datum,Prijs,Betaald,KlantId) output INSERTED.Id " +
+                "VALUES(@Datum,@Prijs,@Betaald,@KlantId) ";
             //string query = "INSERT INTO dbo.Truitje (Maat, Seizoen, Prijs, Versie, " +
             //    "Thuis, Ploeg, Competitie) VALUES(@Maat, @Seizoen, @Prijs, @Versie, " +
             //    "@Thuis, @Ploeg, @Competitie)";
@@ -285,7 +286,8 @@ namespace DataLayer
                     command.Parameters["@Prijs"].Value = bestelling.Prijs;
                     command.Parameters["@Betaald"].Value = bestelling.Betaald;
                     command.Parameters["@KlantId"].Value = bestelling.Klant.KlantId;
-                    command.ExecuteNonQuery();
+                    bestellingID = (int)command.ExecuteScalar();
+                    //command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -297,7 +299,7 @@ namespace DataLayer
                 }
             }
             string queryBestelTrui = "INSERT INTO dbo.Bestel_Trui(IdBestelling,IdTruitje,Aantal)" +
-                    "VALUES(@IdBestelling,@IdTruitje,@Aantal";
+                    "VALUES(@IdBestelling,@IdTruitje,@Aantal)";
 
             foreach (KeyValuePair<Voetbaltruitje, int> element in bestelling.TruiBestelling)
             {
@@ -305,13 +307,17 @@ namespace DataLayer
                 {
                     try
                     {
+                        Console.WriteLine(element.Value);
+                        Console.WriteLine(element.Key.Id);
+                        Console.WriteLine(bestellingID);
                         conn.Open();
                         command.Parameters.Add(new SqlParameter("@IdBestelling", SqlDbType.Int));
                         command.Parameters.Add(new SqlParameter("@IdTruitje", SqlDbType.Int));
                         command.Parameters.Add(new SqlParameter("@Aantal", SqlDbType.Int));
-                        command.Parameters["@IdBestelling"].Value = bestelling.BestellingId;
+                        command.Parameters["@IdBestelling"].Value = bestellingID;
                         command.Parameters["@IdTruitje"].Value = element.Key.Id;
                         command.Parameters["@Aantal"].Value = element.Value;
+                        
                         command.ExecuteNonQuery();
                     }
                     catch (Exception ex)
