@@ -31,6 +31,7 @@ namespace UILayer
         private static IBestellingRepository BestelRepo = new BestellingDatabeheer(ConnectionString);
         private BestellingManager bestellingManager = new BestellingManager(BestelRepo);
         private Bestelling bestelling;
+        private Klant klant;
         private ObservableCollection<TruitjeData> truitjes = new ObservableCollection<TruitjeData>();
 
         public MainWindow()
@@ -134,12 +135,44 @@ namespace UILayer
         }
         private void SelecteerKlantAanpassen_Click(object sender, RoutedEventArgs e)
         {
-
+            SelecteerKlant w = new SelecteerKlant();
+            if (w.ShowDialog() == true)
+            {
+                //bestelling = new Bestelling();
+                //bestelling.ZetKlant(w.Klant);
+                //PrijsTextBox.Text = bestelling.Kostprijs().ToString();
+                KlantAanpassenTextBox.Text = w.Klant.ToString();
+                klant = w.Klant;
+                //CheckBestelling();
+            }
         }
 
         private void ZoekBestellingAanpassenButton_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                if (!string.IsNullOrEmpty(BestellingIdAanpassenTextBox.Text))
+                {
+                    bestelling = bestellingManager.GeefBestelling(int.Parse(BestellingIdAanpassenTextBox.Text));
+                    BestellingenAanpassen.Items.Add(bestelling);
+                }
+                if (!string.IsNullOrEmpty(KlantAanpassenTextBox.Text))
+                {
+                    List<Bestelling> bestellingLijst = new List<Bestelling>(bestellingManager.GeefBestellingenVanKlant(klant));
+                    BestellingenAanpassen.ItemsSource = bestellingLijst;
+                }
+                DateTime? startDatum = StartdatumDatePicker.SelectedDate;
+                DateTime? eindDatum = EinddatumDatePicker.SelectedDate;
+                if (startDatum.HasValue && eindDatum.HasValue)
+                {
+                    List<Bestelling> bestellingLijst = new List<Bestelling>(bestellingManager.GeefBestellingenTussenDatums(startDatum, eindDatum));
+                    BestellingenAanpassen.ItemsSource = bestellingLijst;
+                }
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
 
         private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
@@ -148,7 +181,8 @@ namespace UILayer
         }
         private void MenuItemUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            UpdateBestellingWindow bestellingw = new UpdateBestellingWindow((Bestelling)BestellingenAanpassen.SelectedItem);
+            bestellingw.ShowDialog();
         }
 
 

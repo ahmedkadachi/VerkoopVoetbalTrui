@@ -19,28 +19,29 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="53*"/>
-                        <ColumnDefinition Width="577*"/>
+                        <ColumnDefinition Width="27*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="293*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Klant" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="KlantTextBox" Grid.ColumnSpan="3" Margin="5,5,5,5" IsEnabled="False"/>
-                    <Button Grid.Row="0" Grid.Column="4" Content=" Selecteer Klant" Name="SelecteerKlantButton" Margin="5,5,5,5" Click="SelecteerKlantButton_Click"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="KlantTextBox" Grid.ColumnSpan="4" Margin="5,5,5,5" IsEnabled="False"/>
+                    <Button Grid.Row="0" Grid.Column="5" Content=" Selecteer Klant" Name="SelecteerKlantButton" Margin="5,5,5,5" Click="SelecteerKlantButton_Click"/>
 
                     <Label Grid.Row="1" Grid.Column="0" Content="Prijs" VerticalAlignment="Center" Margin="5,0,5,0"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="PrijsTextBox"  Margin="5,5,5,5" IsEnabled="False"/>
-                    <CheckBox Grid.Row="1" Grid.Column="3" IsChecked="False" Name="BetaaldCheckBox" Content="Betaald" Margin="5,0,5,0" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-                    <Button Grid.Row="1" Grid.Column="4" Content=" Selecteer Truitje" Name="SelecteerTruitjeButton" Margin="5,5,5,5" Click="SelecteerTruitjeButton_Click"/>
+                    <CheckBox Grid.Row="1" Grid.Column="3" IsChecked="False" Name="BetaaldCheckBox" Content="Betaald" Margin="5,0,5,0" VerticalAlignment="Center" Grid.ColumnSpan="3"/>
+                    <Button Grid.Row="1" Grid.Column="5" Content=" Selecteer Truitje" Name="SelecteerTruitjeButton" Margin="5,5,5,5" Click="SelecteerTruitjeButton_Click"/>
 
-                    <DataGrid Grid.Row="2" Grid.ColumnSpan="5" Name="BestellingTruitjes" SelectionUnit="CellOrRowHeader" SelectionMode="Single">
+                    <DataGrid Grid.Row="2" Grid.ColumnSpan="6" Name="BestellingTruitjes" SelectionUnit="CellOrRowHeader" SelectionMode="Single">
                         <DataGrid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Delete" Click="DataGridMenuItemDelete_Click"></MenuItem>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
-                    
-                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Content=" Plaats Bestelling " Name="PlaatsBestellingButton" Margin="5,5,5,5" Click="PlaatsBestellingButton_Click" />
+
+                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" Content=" Plaats Bestelling " Name="PlaatsBestellingButton" Margin="5,5,5,5" Click="PlaatsBestellingButton_Click" />
                 </Grid>
             </TabItem>
             <TabItem Header="Aanpassen">

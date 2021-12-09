@@ -194,6 +194,39 @@ namespace DataLayer
                 }
             }
         }
+        public IReadOnlyList<Bestelling> GeefBestellingenTussenDatums(DateTime? startDatum, DateTime? eindDatum)
+        {
+            string queryTrui = "SELECT * FROM dbo.Bestelling WHERE Datum BETWEEN @startDatum AND @eindDatum";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(queryTrui, conn))
+            {
+                try
+                {
+                    List<Bestelling> bestellingen = new List<Bestelling>();
+                    conn.Open();
+                    command.Parameters.AddWithValue("@startDatum", startDatum);
+                    command.Parameters.AddWithValue("@eindDatum", eindDatum);
+                    IDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Dictionary<Voetbaltruitje, int> producten = GeefVoetbaltruiVanBestelling((int)dataReader["Id"]);
+
+                        bestellingen.Add(new Bestelling((int)dataReader["Id"], GeefKlant((int)dataReader["KlantId"]),
+                            (DateTime)dataReader["Datum"], (double)dataReader["Prijs"], Convert.ToBoolean(dataReader["Betaald"]), producten));
+                    }
+                    dataReader.Close();
+                    return bestellingen;
+                }
+                catch (Exception ex)
+                {
+                    throw new BestellingDatabeheerException("GeefBestellingenTussenDatums niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         public Bestelling GeefBestellingVanKlant(int klantId)
         {

@@ -120,6 +120,18 @@ namespace BusinessLayer.Managers
                 throw new BestellingManagerException("GeefBestellingVanKlant " + ex);
             }
         }
+        public IReadOnlyList<Bestelling> GeefBestellingenTussenDatums(DateTime? startDatum, DateTime? eindDatum)
+        {
+            try
+            {
+                return repo.GeefBestellingenTussenDatums(startDatum, eindDatum);
+                
+            }
+            catch (Exception ex)
+            {
+                throw new BestellingManagerException("GeefBestellingenTussenDatums " + ex);
+            }
+        }
         public Bestelling GeefBestellingVanKlant(int klantId)
         {
             try

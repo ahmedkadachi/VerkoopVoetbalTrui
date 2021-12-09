@@ -70,7 +70,16 @@ namespace BusinessLayer.Model
         }
         public override string ToString()
         {
-            return  Id + " - " + Club.Ploegnaam + " - " + Seizoen +" - " + Prijs + " - " +Kledingmaat.ToString() +  " - " + ClubSet.Thuis + " - " + ClubSet.Versie;
+            string thuis = "";
+            if (ClubSet.Thuis)
+            {
+                thuis = "Thuis";
+            }
+            else
+            {
+                thuis = "Uit";
+            }
+            return  Id + " - " + Club.Ploegnaam + " - " + Seizoen +" - " + Prijs + " - " +Kledingmaat.ToString() +  " - " + thuis + " - " + ClubSet.Versie;
         }
     }
 }

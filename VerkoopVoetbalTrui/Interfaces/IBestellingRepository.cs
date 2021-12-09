@@ -17,6 +17,7 @@ namespace BusinessLayer.Interfaces
         void VerwijderBestelling(Bestelling bestelling);
         void UpdateBestelling(Bestelling bestelling);
         IReadOnlyList<Bestelling> GeefBestellingenVanKlant(Klant klant);
+        IReadOnlyList<Bestelling> GeefBestellingenTussenDatums(DateTime? startDatum, DateTime? eindDatum);
         Bestelling GeefBestellingVanKlant(int klantId);
         bool BestaatKlant(int klantId);
         bool BestaatKlant(Klant klant);
