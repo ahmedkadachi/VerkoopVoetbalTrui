@@ -29,6 +29,7 @@ namespace UILayer
         private static IBestellingRepository BestelRepo = new BestellingDatabeheer(ConnectionString);
         private BestellingManager bestellingManager = new BestellingManager(BestelRepo);
         public Bestelling bestelling { get; private set; }
+        private Klant klant { get; set; }
         private ObservableCollection<TruitjeData> truitjes = new ObservableCollection<TruitjeData>();
         private Dictionary<Voetbaltruitje,int> truiLijst = new Dictionary<Voetbaltruitje,int>();
 
@@ -119,6 +120,7 @@ namespace UILayer
                 bestelling.ZetKlant(w.Klant);
                 PrijsTextBox.Text = bestelling.Kostprijs().ToString();
                 KlantTextBox.Text = w.Klant.ToString();
+                klant = w.Klant;
                 //CheckBestelling();
             }
         }
@@ -131,6 +133,32 @@ namespace UILayer
             //BestellingTruitjes.Items.Refresh();
             BestellingTruitjes.ItemsSource = null;
             BestellingTruitjes.ItemsSource = truitjes;
+        }
+        private void WijzigBestellingButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bestelling.ZetTijdstip(datumDatePicker.SelectedDate);
+                if (BetaaldCheckBox.IsChecked == true)
+                {
+                    bestelling.ZetBetaald(true);
+                }
+                else
+                {
+                    bestelling.ZetBetaald(false);
+                }
+
+                foreach (KeyValuePair<Voetbaltruitje, int> element in bestelling.TruiBestelling)
+                {
+                    bestellingManager.UpdateBestelTrui(bestelling.BestellingId, element.Key.Id, element.Value);
+                }
+                bestellingManager.UpdateBestelling(bestelling);
+                MessageBox.Show("De bestelling werd correct aangepast!");
+                }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

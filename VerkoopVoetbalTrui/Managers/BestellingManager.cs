@@ -150,7 +150,7 @@ namespace BusinessLayer.Managers
                 throw new BestellingManagerException("GeefBestellingVanKlant " + ex);
             }
         }
-        void UpdateBestelTrui(int bestellingId, int truiId, int aantal)
+        public void UpdateBestelTrui(int bestellingId, int truiId, int aantal)
         {
             try
             {

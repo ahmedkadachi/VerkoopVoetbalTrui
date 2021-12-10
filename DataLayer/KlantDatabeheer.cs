@@ -73,6 +73,30 @@ namespace DataLayer
                 }
             }
         }
+        public bool HeeftKlantBestellingen(Klant klant)
+        {
+            string query = "SELECT count(*) FROM dbo.Bestelling WHERE KlantId=@Id";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@Id", klant.KlantId);
+                    int n = (int)command.ExecuteScalar();
+                    if (n > 0) return true;
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    throw new KlantDatabeheerException("HeeftKlantBestellingen niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         public IReadOnlyList<Klant> GeefKlanten()
         {

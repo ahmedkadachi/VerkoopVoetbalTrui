@@ -37,13 +37,16 @@
                                     VerticalAlignment="Center" SelectedDateFormat="Short" IsTodayHighlighted="True"/>
         </Grid>
         
-        <Button Grid.Row="1" Grid.Column="4" Content=" Selecteer Truitje" Name="SelecteerTruitjeButton" Margin="5,5,5,5" Click="SelecteerTruitjeButton_Click"/>
+        <Button Grid.Row="1" Grid.Column="4" Content=" Selecteer Truitje" Name="SelecteerTruitjeButton" Margin="5,5,5,5" Click="SelecteerTruitjeButton_Click" IsEnabled="false"/>
         <DataGrid Grid.Row="2" Grid.ColumnSpan="5" Name="BestellingTruitjes" SelectionUnit="FullRow" SelectionMode="Single">
+            
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Delete" Click="DataGridMenuItemDelete_Click"></MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
+            
         </DataGrid>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Content=" Wijzig bestelling " Name="WijzigBestellingButton" Margin="5,5,5,5" Click="WijzigBestellingButton_Click" />
     </Grid>
 </Window>

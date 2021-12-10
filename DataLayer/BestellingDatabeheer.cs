@@ -262,7 +262,7 @@ namespace DataLayer
         public void UpdateBestelling(Bestelling bestelling)
         {
             string query = "UPDATE dbo.Bestelling SET Datum=@Datum, Prijs=@Prijs, Betaald=@Betaald," +
-                "KlantId=@KlantId WHERE IdBestelling=@IdBestelling";
+                "KlantId=@KlantId WHERE Id=@IdBestelling";
             SqlConnection conn = getConnection();
             using (SqlCommand command = new SqlCommand(query, conn))
             {
@@ -283,7 +283,7 @@ namespace DataLayer
                 }
                 catch (Exception ex)
                 {
-                    throw new BestellingDatabeheerException("UpdateBestelTrui niet gelukt", ex);
+                    throw new BestellingDatabeheerException("UpdateBestelling niet gelukt", ex);
                 }
                 finally
                 {

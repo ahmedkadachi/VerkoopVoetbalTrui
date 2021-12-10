@@ -1,0 +1,2 @@
+﻿1. verwijderen van truitjes tijdens het aanpassen
+2. Alle klanten weergeven wanneer er niets word ingevuld qua criteria

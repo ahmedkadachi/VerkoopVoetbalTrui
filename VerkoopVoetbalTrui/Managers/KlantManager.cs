@@ -18,7 +18,7 @@ namespace BusinessLayer.Managers
             this.repo = repo;
         }
         
-        IReadOnlyList<Klant> GeefKlanten()
+        public IReadOnlyList<Klant> GeefKlanten()
         {
             try
             {
@@ -37,6 +37,10 @@ namespace BusinessLayer.Managers
                 if (!repo.BestaatKlant(klant))
                 {
                     throw new KlantManagerException("VerwijderKlant - bestaat niet");
+                }
+                else if (repo.HeeftKlantBestellingen(klant))
+                {
+                    throw new KlantManagerException("VerwijderKlant - Klant heeft al bestellingen");
                 }
                 else
                 {

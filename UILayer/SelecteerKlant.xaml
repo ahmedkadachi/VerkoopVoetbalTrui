@@ -7,30 +7,55 @@
         mc:Ignorable="d"
         Title="SelecteerKlant" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Klant ID" VerticalAlignment="Center" Margin="5,0,5,0"/>
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="KlantIdTextBox"  Margin="5,5,5,5"/>
-        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Content=" Zoek " Name="ZoekKlantButton" Margin="5,5,5,5" Click="ZoekKlantButton_Click"/>
+        <TabControl>
+            <TabItem Header="Selecteer Klant">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Klant ID" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="KlantIdTextBox"  Margin="5,5,5,5"/>
+                    <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Content=" Zoek " Name="ZoekKlantButton" Margin="5,5,5,5" Click="ZoekKlantButton_Click"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Naam" VerticalAlignment="Center" Margin="5,0,5,0"/>
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="KlantNaamTextBox"  Margin="5,5,5,5"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Naam" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="KlantNaamTextBox"  Margin="5,5,5,5"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Adres" VerticalAlignment="Center" Margin="5,0,5,0"/>
-        <TextBox Grid.Row="2" Grid.Column="1" x:Name="KlantAdresTextBox"  Margin="5,5,5,5"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="Adres" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="KlantAdresTextBox"  Margin="5,5,5,5"/>
+                    <Button Grid.Row="2" Grid.Column="2"  Content=" Verwijder " Name="VerwijderKlantButton" Margin="5,5,5,5" Click="VerwijderKlantButton_Click"/>
+                    
+                    <ListBox Grid.Row="3" Grid.ColumnSpan="3" Name="KlantenListBox"  SelectionMode="Single"/>
+                    <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Content=" Selecteer Klant " Name="SelecteerKlantButton" Margin="5,5,5,5" Click="SelecteerKlantButton_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Klant Toevoegen">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Klant Naam" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="VoegKlantNaamTextBox"  Margin="5,5,5,5"/>
+                    <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Content=" Voeg Toe " Name="VoegKlantButton" Margin="5,5,5,5" Click="VoegKlantButton_Click"/>
 
-        <ListBox Grid.Row="3" Grid.ColumnSpan="3" Name="KlantenListBox"  SelectionMode="Single"/>
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Content=" Selecteer Klant " Name="SelecteerKlantButton" Margin="5,5,5,5" Click="SelecteerKlantButton_Click"/>
-        
+                    <Label Grid.Row="1" Grid.Column="0" Content="Klant Adres" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="VoegKlantAdresTextBox"  Margin="5,5,5,5"/>
+                </Grid>
+            </TabItem>
+            </TabControl>
     </Grid>
 </Window>

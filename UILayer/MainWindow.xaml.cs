@@ -72,7 +72,10 @@ namespace UILayer
                         bestelling.ZetTijdstip(nu);
                         bestelling.ZetPrijs(double.Parse(PrijsTextBox.Text));
                         bestellingManager.VoegBestellingToe(bestelling);
-                    }catch(Exception ex)
+                        MessageBox.Show("De bestelling is succesvol geplaatst!");
+                        BestellingenAanpassen.ItemsSource = null;
+                    }
+                    catch(Exception ex)
                     {
                         MessageBox.Show(ex.ToString());
                     }
@@ -149,6 +152,7 @@ namespace UILayer
 
         private void ZoekBestellingAanpassenButton_Click(object sender, RoutedEventArgs e)
         {
+            BestellingenAanpassen.ItemsSource = null;
             try
             {
                 if (!string.IsNullOrEmpty(BestellingIdAanpassenTextBox.Text))

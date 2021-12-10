@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace UILayer
         private static IBestellingRepository bestelRepo = new BestellingDatabeheer(ConnectionString);
         private BestellingManager bestelManager = new BestellingManager(bestelRepo);
         public Klant Klant { get; private set; }
+        
         public SelecteerKlant()
         {
             InitializeComponent();
@@ -37,8 +39,10 @@ namespace UILayer
 
         private void ZoekKlantButton_Click(object sender, RoutedEventArgs e)
         {
-            KlantenListBox.Items.Clear();
-            
+            ObservableCollection<Klant> KlantLijst = new ObservableCollection<Klant>(Manager.GeefKlanten());
+            KlantLijst.Clear();
+            KlantLijst = new ObservableCollection<Klant>(Manager.GeefKlanten());
+            bool NiestIsGeselecteerd = true;
             try
             {
                 if (!string.IsNullOrEmpty(KlantIdTextBox.Text))
@@ -46,18 +50,26 @@ namespace UILayer
                     int klantId = int.Parse(KlantIdTextBox.Text);
                     Klant = Manager.GeefKlant(klantId);
                     VulListboxIn(Klant);
+                    NiestIsGeselecteerd = false;
                 }
 
                 if (!string.IsNullOrEmpty(KlantNaamTextBox.Text))
                 {
                     Klant = Manager.GeefKlantNaam(KlantNaamTextBox.Text);
                     VulListboxIn(Klant);
+                    NiestIsGeselecteerd = false;
                 }
 
                 if (!string.IsNullOrEmpty(KlantAdresTextBox.Text))
                 {
                     Klant = Manager.GeefKlantAdres(KlantAdresTextBox.Text);
                     VulListboxIn(Klant);
+                    NiestIsGeselecteerd = false;
+                }
+                if (NiestIsGeselecteerd)
+                {
+                    
+                    KlantenListBox.ItemsSource = KlantLijst;
                 }
             }
             catch (Exception ex)
@@ -66,7 +78,19 @@ namespace UILayer
             }
             
         }
+        private void VerwijderKlantButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Klant = (Klant)KlantenListBox.SelectedItem;
+                Manager.VerwijderKlant(Klant);
 
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
         private void SelecteerKlantButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -101,6 +125,35 @@ namespace UILayer
             klant.Bestellingen = bestellingen;
             KlantenListBox.Items.Add(klant);
             KlantenListBox.Items.Add(gegevens);
+        }
+
+        private void VoegKlantButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(VoegKlantAdresTextBox.Text))
+                {
+                    if (!string.IsNullOrEmpty(VoegKlantNaamTextBox.Text))
+                    {
+                        Klant = new Klant(VoegKlantNaamTextBox.Text, VoegKlantAdresTextBox.Text);
+                        Manager.VoegKlantToe(Klant);
+                        MessageBox.Show("De klant " + VoegKlantNaamTextBox.Text + " werd succesvol aangemaakt!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Gelieve een naam in te vullen!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Gelieve een adres in te vullen!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
     }
 }

@@ -12,6 +12,7 @@ namespace BusinessLayer.Interfaces
         void VoegKlantToe(Klant klant);
         bool BestaatKlant(Klant klant);
         bool BestaatKlant(int klantId);
+        bool HeeftKlantBestellingen(Klant klant);
         IReadOnlyList<Klant> GeefKlanten();
         Klant GeefKlant(int klantId);
         Klant GeefKlantNaam(string klantNaam);
