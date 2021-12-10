@@ -39,9 +39,7 @@ namespace UILayer
 
         private void ZoekKlantButton_Click(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Klant> KlantLijst = new ObservableCollection<Klant>(Manager.GeefKlanten());
-            KlantLijst.Clear();
-            KlantLijst = new ObservableCollection<Klant>(Manager.GeefKlanten());
+            KlantenListBox.Items.Clear();
             bool NiestIsGeselecteerd = true;
             try
             {
@@ -68,8 +66,12 @@ namespace UILayer
                 }
                 if (NiestIsGeselecteerd)
                 {
-                    
-                    KlantenListBox.ItemsSource = KlantLijst;
+                    ObservableCollection<Klant> KlantLijst = new ObservableCollection<Klant>(Manager.GeefKlanten());
+                    foreach (Klant element in KlantLijst)
+                    {
+                        KlantenListBox.Items.Add(element);
+                    }
+                    //KlantenListBox.ItemsSource = KlantLijst;
                 }
             }
             catch (Exception ex)
@@ -82,8 +84,16 @@ namespace UILayer
         {
             try
             {
-                Klant = (Klant)KlantenListBox.SelectedItem;
-                Manager.VerwijderKlant(Klant);
+                if (KlantenListBox.SelectedIndex >= 0)
+                {
+                    Klant = (Klant)KlantenListBox.SelectedItem;
+                    Manager.VerwijderKlant(Klant);
+                }
+                else
+                {
+                    MessageBox.Show("Gelieve eerst een klant te selecteren");
+                }
+                
 
             }
             catch(Exception ex)
@@ -155,5 +165,23 @@ namespace UILayer
             }
             
         }
+
+        
+        private void MenuItemWijzig_Click(object sender, RoutedEventArgs e)
+        {
+            if (KlantenListBox.SelectedIndex < 0)
+            {
+                MessageBox.Show("Gelieve een klant te selecteren");
+            }
+            else
+            {
+                KlantWijzigWindow w = new KlantWijzigWindow((Klant)KlantenListBox.SelectedItem);
+                if (w.ShowDialog() == true)
+                {
+                    KlantenListBox.Items.Refresh();
+                }
+            }
+        }
+        
     }
 }

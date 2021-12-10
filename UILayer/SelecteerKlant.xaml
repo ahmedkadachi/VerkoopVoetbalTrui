@@ -32,8 +32,14 @@
                     <Label Grid.Row="2" Grid.Column="0" Content="Adres" VerticalAlignment="Center" Margin="5,0,5,0"/>
                     <TextBox Grid.Row="2" Grid.Column="1" x:Name="KlantAdresTextBox"  Margin="5,5,5,5"/>
                     <Button Grid.Row="2" Grid.Column="2"  Content=" Verwijder " Name="VerwijderKlantButton" Margin="5,5,5,5" Click="VerwijderKlantButton_Click"/>
-                    
-                    <ListBox Grid.Row="3" Grid.ColumnSpan="3" Name="KlantenListBox"  SelectionMode="Single"/>
+
+                    <ListBox Grid.Row="3" Grid.ColumnSpan="3" Name="KlantenListBox"  SelectionMode="Single">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Wijzig" Click="MenuItemWijzig_Click"/>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                    </ListBox>
                     <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Content=" Selecteer Klant " Name="SelecteerKlantButton" Margin="5,5,5,5" Click="SelecteerKlantButton_Click"/>
                 </Grid>
             </TabItem>
@@ -56,6 +62,6 @@
                     <TextBox Grid.Row="1" Grid.Column="1" x:Name="VoegKlantAdresTextBox"  Margin="5,5,5,5"/>
                 </Grid>
             </TabItem>
-            </TabControl>
+        </TabControl>
     </Grid>
 </Window>

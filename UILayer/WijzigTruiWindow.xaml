@@ -1,0 +1,57 @@
+﻿<Window x:Class="UILayer.WijzigTruiWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UILayer"
+        mc:Ignorable="d"
+        Title="WijzigTruiWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Competitie" VerticalAlignment="Center" Margin="5,0,5,0"/>
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="WijzigCompetitieTextBox" Margin="5" />
+            <Label Grid.Row="0" Grid.Column="2" Content="Club" VerticalAlignment="Center" Margin="5,0,5,0"/>
+            <TextBox Grid.Row="0" Grid.Column="3" x:Name="WijzigClubTextBox" Margin="5"/>
+
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Seizoen" VerticalAlignment="Center" Margin="5,5,5,5"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="WijzigSeizoenTextBox"  Margin="5,5,5,5" IsEnabled="True"/>
+            <Label Grid.Row="1" Grid.Column="2" Content="Prijs" VerticalAlignment="Center" Margin="5,5,5,5"/>
+            <TextBox Grid.Row="1" Grid.Column="3" x:Name="WijzigPrijsTextBox"  Margin="5,5,5,5" IsEnabled="True"/>
+
+
+            <Button Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Content=" Wijzig truitje " Name="WijzigBestellingTruitjeButton" Margin="5,5,5,5" Click="WijzigBestellingTruitjeButton_Click"/>
+
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="False" Name="WijzigThuisCheckBox" Content="Thuis" Margin="5,0,5,0" VerticalAlignment="Center"/>
+            <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="False" Name="WijzigUitCheckBox" Content="Uit" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                <Label Grid.Row="0" Grid.Column="2" Content="Versie" VerticalAlignment="Center" Margin="5,5,5,5"/>
+            <TextBox Grid.Row="0" Grid.Column="3" x:Name="WijzigVersieTextBox"  Margin="5,5,5,5" IsEnabled="True"/>
+                <Label Grid.Row="0" Grid.Column="4" Content="Maat" VerticalAlignment="Center" Margin="5,5,5,5"/>
+            <ComboBox Grid.Row="0" Grid.Column="5" x:Name="WijzigSelecteerMaatComboBox" Margin="5"/>
+            </Grid>
+        
+    </Grid>
+</Window>

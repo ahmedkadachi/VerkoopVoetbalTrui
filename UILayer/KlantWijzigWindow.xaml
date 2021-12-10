@@ -1,0 +1,30 @@
+﻿<Window x:Class="UILayer.KlantWijzigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UILayer"
+        mc:Ignorable="d"
+        Title="KlantWijzigWindow" Height="450" Width="800">
+    <Grid>
+        
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Klant Naam" VerticalAlignment="Center" Margin="5,0,5,0"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="WijzigKlantNaamTextBox"  Margin="5,5,5,5"/>
+        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Content=" Wijzig klant " Name="WijzigKlantButton" 
+                            Margin="5,5,5,5" Click="WijzigKlantButton_Click"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Klant Adres" VerticalAlignment="Center" Margin="5,0,5,0"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="WijzigKlantAdresTextBox"  Margin="5,5,5,5"/>
+            
+        
+    </Grid>
+</Window>

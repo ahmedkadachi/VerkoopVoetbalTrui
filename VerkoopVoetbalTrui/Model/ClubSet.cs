@@ -15,6 +15,7 @@ namespace BusinessLayer.Model
             ZetVersie(versie);
             
         }
+        public ClubSet() { }
         public bool Thuis { get; private set; }
         public int Versie { get; private set; }
 

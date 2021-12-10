@@ -27,7 +27,7 @@ namespace UILayer
         private static string ConnectionString = @"Data Source=DESKTOP-R7T8D5F\SQLEXPRESS;Initial Catalog=VerkoopVoetbalTrui;Integrated Security=True";
         private ObservableCollection<string> competities;
         private ObservableCollection<string> clubs;
-        public List<Voetbaltruitje> Voetbaltruitje { get; private set; } = new List<Voetbaltruitje>();
+        public List<Voetbaltruitje> VoetbaltruitjeLijst { get; private set; } = new List<Voetbaltruitje>();
 
         private static IVoetbaltruitjeRepository voetbaltruitjeRepo = new VoetbaltruitjeDatabeheer(ConnectionString);
         private VoetbaltruitjeManager Manager = new VoetbaltruitjeManager(voetbaltruitjeRepo);
@@ -47,6 +47,9 @@ namespace UILayer
             maten.Insert(0, "<alles>");
             SelecteerMaatComboBox.ItemsSource = maten;
             SelecteerMaatComboBox.SelectedIndex = 0;
+
+            VoegSelecteerMaatComboBox.ItemsSource = maten;
+            VoegSelecteerMaatComboBox.SelectedIndex = 0;
 
             //competitie en club
             IClubRepository clubRepo = new ClubDatabeheer(ConnectionString);
@@ -86,60 +89,62 @@ namespace UILayer
         {
             try
             {
+                VoetbaltruitjeLijst.Clear();
+                SelecteerTruitjes.Items.Clear();
                 if (!string.IsNullOrEmpty(IDTextBox.Text))
                 {
                     int truiId = int.Parse(IDTextBox.Text);
-                    Voetbaltruitje = Manager.GeefVoetbaltruitjesID(truiId).ToList();
-
-                    SelecteerTruitjes.ItemsSource = Voetbaltruitje;
+                    VoetbaltruitjeLijst = Manager.GeefVoetbaltruitjesID(truiId).ToList();
                 }
 
                 if(SelecteerMaatComboBox.SelectedIndex > 0 && SelecteerMaatComboBox.SelectedItem != null)
                 {
-                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesMaat(SelecteerMaatComboBox.SelectedItem.ToString());
+                    VoetbaltruitjeLijst = Manager.GeefVoetbaltruitjesMaat(SelecteerMaatComboBox.SelectedItem.ToString()).ToList();
                 }
-
-                
 
                 if (SelecteerCompetitieComboBox.SelectedIndex > 0 && SelecteerCompetitieComboBox.SelectedItem != null )
                 {
                     if (SelecteerClubComboBox.SelectedIndex > 0 && SelecteerClubComboBox.SelectedItem != null)
                     {
-                        SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesPloeg(SelecteerClubComboBox.SelectedItem.ToString());
+                        VoetbaltruitjeLijst = Manager.GeefVoetbaltruitjesPloeg(SelecteerClubComboBox.SelectedItem.ToString()).ToList();
                     }
                     else
                     {
-                        SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesCompetitie(SelecteerCompetitieComboBox.SelectedItem.ToString());
+                        VoetbaltruitjeLijst = Manager.GeefVoetbaltruitjesCompetitie(SelecteerCompetitieComboBox.SelectedItem.ToString()).ToList();
                     }
                     
                 }
 
                 if (!string.IsNullOrEmpty(SeizoenTextBox.Text))
                 {
-                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesSeizoen(SeizoenTextBox.Text);
+                    VoetbaltruitjeLijst = Manager.GeefVoetbaltruitjesSeizoen(SeizoenTextBox.Text).ToList();
                 }
                 if (!string.IsNullOrEmpty(PrijsTextBox.Text))
                 {
-                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesPrijs(double.Parse(PrijsTextBox.Text));
+                    VoetbaltruitjeLijst = Manager.GeefVoetbaltruitjesPrijs(double.Parse(PrijsTextBox.Text)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(PrijsTextBox.Text))
                 {
-                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesPrijs(double.Parse(PrijsTextBox.Text));
+                    VoetbaltruitjeLijst = Manager.GeefVoetbaltruitjesPrijs(double.Parse(PrijsTextBox.Text)).ToList();
                 }
 
                 if (ThuisCheckBox.IsChecked == true)
                 {
-                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesThuis(true);
+                    VoetbaltruitjeLijst = Manager.GeefVoetbaltruitjesThuis(true).ToList();
                 }else if(UitCheckBox.IsChecked == true)
                 {
-                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesThuis(false);
+                    VoetbaltruitjeLijst = Manager.GeefVoetbaltruitjesThuis(false).ToList();
                 }
                 if (!string.IsNullOrEmpty(VersieTextBox.Text))
                 {
-                    SelecteerTruitjes.ItemsSource = Manager.GeefVoetbaltruitjesVersie(VersieTextBox.Text);
+                    VoetbaltruitjeLijst = Manager.GeefVoetbaltruitjesVersie(VersieTextBox.Text).ToList(); ;
                 }
 
+                foreach (Voetbaltruitje element in VoetbaltruitjeLijst)
+                {
+                    SelecteerTruitjes.Items.Add(element);
+                }
             }
             catch (Exception ex)
             {
@@ -179,6 +184,113 @@ namespace UILayer
             else
             {
                 SelecteerClubComboBox.ItemsSource = null;
+            }
+        }
+        private void VoegBestellingTruitjeButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool allesOK = true;
+            
+            ClubSet nieuweClubSet = new ClubSet();
+
+            if (string.IsNullOrEmpty(VoegCompetitieTextBox.Text))
+            {
+                allesOK = false;
+                MessageBox.Show("Gelieve een geldige Competitie in te voeren");
+            }
+            if (string.IsNullOrEmpty(VoegClubTextBox.Text))
+            {
+                allesOK = false;
+                MessageBox.Show("Gelieve een geldige Club in te voeren");
+            }
+            if (string.IsNullOrEmpty(VoegSeizoenTextBox.Text))
+            {
+                allesOK = false;
+                MessageBox.Show("Gelieve een geldige Seizoen in te voeren");
+            }
+            if (string.IsNullOrEmpty(VoegPrijsTextBox.Text))
+            {
+                allesOK = false;
+                MessageBox.Show("Gelieve een geldige Prijs in te voeren");
+            }
+            if (string.IsNullOrEmpty(VoegVersieTextBox.Text))
+            {
+                allesOK = false;
+                MessageBox.Show("Gelieve een geldige versie in te voeren");
+            }
+            if(VoegThuisCheckBox.IsChecked == true && VoegUitCheckBox.IsChecked == false)
+            {
+                nieuweClubSet.ZetThuis(true);
+            }
+            else if(VoegThuisCheckBox.IsChecked == false && VoegUitCheckBox.IsChecked == true)
+            {
+                nieuweClubSet.ZetThuis(false);
+            }
+            else if(VoegThuisCheckBox.IsChecked == true && VoegUitCheckBox.IsChecked == true)
+            {
+                allesOK = false;
+                MessageBox.Show("Gelieve alleen maar THUIS of UIT te selecteren");
+            }else if(VoegThuisCheckBox.IsChecked == false && VoegUitCheckBox.IsChecked == false)
+            {
+                allesOK = false;
+                MessageBox.Show("Gelieve te kiezen tussen THUIS of UIT");
+            }
+            if (VoegSelecteerMaatComboBox.SelectedIndex <= 0)
+            {
+                allesOK = false;
+                MessageBox.Show("Gelieve een gelige maat te kiezen");
+            }
+
+            try
+            {
+                if (allesOK)
+                {
+                    nieuweClubSet.ZetVersie(int.Parse(VoegVersieTextBox.Text));
+                    var maat = (Kledingmaat)Enum.Parse(typeof(Kledingmaat), VoegSelecteerMaatComboBox.SelectedItem.ToString());
+                    Voetbaltruitje nieuweTrui = new Voetbaltruitje(new Club(VoegCompetitieTextBox.Text,VoegClubTextBox.Text),VoegSeizoenTextBox.Text,
+                        double.Parse(VoegPrijsTextBox.Text),maat,nieuweClubSet);
+                    Manager.VoegVoetbaltruitjeToe(nieuweTrui);
+                }
+
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void VerwijderBestellingTruitjeButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (SelecteerTruitjes.SelectedIndex >= 0)
+                {
+                    Voetbaltruitje Voetbaltruitje = (Voetbaltruitje)SelecteerTruitjes.SelectedItem;
+                    Manager.VerwijderVoetbaltruitje(Voetbaltruitje);
+                    SelecteerTruitjes.Items.Remove(Voetbaltruitje);
+                    SelecteerTruitjes.Items.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("Gelieve eerst een trui te selecter");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private void MenuItemWijzig_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelecteerTruitjes.SelectedIndex < 0)
+            {
+                MessageBox.Show("Gelieve een Trui te selecteren");
+            }
+            else
+            {
+                WijzigTruiWindow  w = new WijzigTruiWindow((Voetbaltruitje)SelecteerTruitjes.SelectedItem);
+                if (w.ShowDialog() == true)
+                {
+                    SelecteerTruitjes.Items.Refresh();
+                }
             }
         }
     }

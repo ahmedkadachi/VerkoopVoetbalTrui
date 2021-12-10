@@ -21,6 +21,7 @@ namespace BusinessLayer.Model
         public double Prijs { get; private set; }
 
         public string Seizoen { get; private set; }
+        public Voetbaltruitje() { }
         public Voetbaltruitje(int id, Club club, string seizoen, double prijs, Kledingmaat kledingmaat, ClubSet clubSet)
         {
             ZetId(id);

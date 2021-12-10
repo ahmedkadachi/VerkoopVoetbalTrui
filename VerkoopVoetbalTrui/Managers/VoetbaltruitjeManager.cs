@@ -162,6 +162,10 @@ namespace BusinessLayer.Managers
                 {
                     throw new VoetbaltruitjeManagerException("VerwijderVoetbaltruitje - bestaat niet");
                 }
+                else if (repo.HeeftTruiBestellingen(truitje))
+                {
+                    throw new VoetbaltruitjeManagerException("VerwijderVoetbaltruitje - Trui heeft al een bestelling");
+                }
                 else
                 {
                     repo.VerwijderVoetbaltruitje(truitje);

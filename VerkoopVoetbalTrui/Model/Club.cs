@@ -20,6 +20,7 @@ namespace BusinessLayer.Model
             ZetPloegnaam(ploegnaam);
             ZetClubtId(id);
         }
+        public Club() { }
         public string Ploegnaam { get; private set; }
         public string Competitie { get; private set; }
         public int ClubId { get; private set; }

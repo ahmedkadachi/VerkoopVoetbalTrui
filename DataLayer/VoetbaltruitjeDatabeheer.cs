@@ -74,7 +74,55 @@ namespace DataLayer
                 }
             }
         }
-
+        public bool BestaatClub(Club club)
+        {
+            string query = "SELECT count(*) FROM dbo.Club WHERE Competitie=@Competitie AND Ploeg=@Ploeg";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@Competitie", club.Competitie);
+                    command.Parameters.AddWithValue("@Ploeg", club.Ploegnaam);
+                    int n = (int)command.ExecuteScalar();
+                    if (n > 0) return true;
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    throw new VoetbaltruitjeDatabeheerException("BestaatVoetbaltruitje niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public bool HeeftTruiBestellingen(Voetbaltruitje truitje)
+        {
+            string query = "SELECT count(*) FROM dbo.Bestel_Trui WHERE IdTruitje=@IdTruitje";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@IdTruitje", truitje.Id);
+                    int n = (int)command.ExecuteScalar();
+                    if (n > 0) return true;
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    throw new KlantDatabeheerException("HeeftTruiBestellingen niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
         public Voetbaltruitje GeefVoetbaltruitje(int voetbaltruitjeId)
         {
             string query = "SELECT * FROM dbo.Truitje WHERE Id=@voetbaltruitjeId";
@@ -501,8 +549,34 @@ namespace DataLayer
                 {
                     conn.Close();
                 }
+
+                
+            }
+            if (!BestaatClub(truitje.Club))
+            {
+                string queryClub = "INSERT INTO dbo.Club (Competitie, Ploeg) VALUES(@Competitie, @Ploeg)";
+                using (SqlCommand command = new SqlCommand(queryClub, conn))
+                {
+                    try
+                    {
+                        conn.Open();
+                        command.Parameters.Add(new SqlParameter("@Competitie", SqlDbType.NVarChar));
+                        command.Parameters.Add(new SqlParameter("@Ploeg", SqlDbType.NVarChar));
+                        command.Parameters["@Competitie"].Value = truitje.Club.Competitie;
+                        command.Parameters["@Ploeg"].Value = truitje.Club.Ploegnaam;
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new VoetbaltruitjeDatabeheerException("VoegTruitjeToe niet gelukt", ex);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
             }
         }
     }
-    }
+}
 

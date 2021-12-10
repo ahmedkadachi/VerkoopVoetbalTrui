@@ -12,6 +12,7 @@ namespace BusinessLayer.Interfaces
         void VoegVoetbaltruitjeToe(Voetbaltruitje truitje);
         bool BestaatVoetbaltruitje(Voetbaltruitje truitje);
         bool BestaatVoetbaltruitje(int voetbaltruitjeId);
+        bool HeeftTruiBestellingen(Voetbaltruitje truitje);
         IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjes();
         public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesID(int id);
         public IReadOnlyList<Voetbaltruitje> GeefVoetbaltruitjesMaat(string maat);
