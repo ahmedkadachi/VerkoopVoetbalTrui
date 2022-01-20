@@ -10,11 +10,13 @@ namespace BusinessLayer.Interfaces
     public interface IBestellingRepository
     {
         void VoegBestellingToe(Bestelling bestelling);
+        bool HeeftBestellingTruitjes(Bestelling bestelling);
         bool BestaatBestelling(Bestelling bestelling);
         bool BestaatBestelling(int bestellingId);
         IReadOnlyList<Bestelling> GeefBestellingen();
         Bestelling GeefBestelling(int bestellingId);
         void VerwijderBestelling(Bestelling bestelling);
+        public void VerwijderTruiVanBestelling(int bestellingId, int truiId);
         void UpdateBestelling(Bestelling bestelling);
         IReadOnlyList<Bestelling> GeefBestellingenVanKlant(Klant klant);
         IReadOnlyList<Bestelling> GeefBestellingenTussenDatums(DateTime? startDatum, DateTime? eindDatum);

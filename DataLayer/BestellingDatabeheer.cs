@@ -49,6 +49,30 @@ namespace DataLayer
                 }
             }
         }
+        public bool HeeftBestellingTruitjes(Bestelling bestelling)
+        {
+            string query = "SELECT count(*) FROM dbo.Bestel_Trui WHERE IdBestelling=@Id";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@Id", bestelling.BestellingId);
+                    int n = (int)command.ExecuteScalar();
+                    if (n > 0) return true;
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    throw new BestellingDatabeheerException("HeeftBestellingTruitjes niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         public bool BestaatBestelling(int bestellingId)
         {
@@ -294,7 +318,51 @@ namespace DataLayer
 
         public void VerwijderBestelling(Bestelling bestelling)
         {
-            throw new NotImplementedException();
+            string query = "DELETE FROM dbo.Bestelling WHERE Id=@Id";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int));
+                    command.Parameters["@Id"].Value = bestelling.BestellingId;
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new KlantDatabeheerException("VerwijderBestelling niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public void VerwijderTruiVanBestelling(int bestellingId, int truiId)
+        {
+            string query = "DELETE FROM dbo.Bestel_Trui WHERE IdBestelling=@Id AND IdTruitje=@IdTruitje";
+            SqlConnection conn = getConnection();
+            using (SqlCommand command = new SqlCommand(query, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int));
+                    command.Parameters.Add(new SqlParameter("@IdTruitje", SqlDbType.Int));
+                    command.Parameters["@Id"].Value = bestellingId;
+                    command.Parameters["@IdTruitje"].Value = truiId;
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new KlantDatabeheerException("VerwijderBestelling niet gelukt", ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
         }
 
         public void VoegBestellingToe(Bestelling bestelling)

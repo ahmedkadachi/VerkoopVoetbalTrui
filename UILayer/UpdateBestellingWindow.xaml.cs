@@ -126,13 +126,31 @@ namespace UILayer
         }
         private void DataGridMenuItemDelete_Click(object sender, RoutedEventArgs e)
         {
-            TruitjeData trui = new TruitjeData(truitjes[BestellingTruitjes.SelectedIndex].Truitje, truitjes[BestellingTruitjes.SelectedIndex].Aantal);
-            bestelling.VerwijderProduct(trui.Truitje,trui.Aantal);
-            truitjes.Remove(trui);
-            //BestellingTruitjes.ItemsSource = truitjes;
-            //BestellingTruitjes.Items.Refresh();
-            BestellingTruitjes.ItemsSource = null;
-            BestellingTruitjes.ItemsSource = truitjes;
+            try
+            {
+                if (BestellingTruitjes.SelectedItem == null)
+                {
+                    MessageBox.Show("Gelieve een bestelling te selecteren");
+                }
+                else
+                {
+                    TruitjeData trui = new TruitjeData(truitjes[BestellingTruitjes.SelectedIndex].Truitje, truitjes[BestellingTruitjes.SelectedIndex].Aantal);
+                    bestellingManager.VerwijderTruiVanBestelling(bestelling.BestellingId, trui.Truitje.Id); 
+                    bestelling.VerwijderProduct(trui.Truitje, trui.Aantal);
+                    truitjes.Remove(trui);
+
+                    //BestellingTruitjes.ItemsSource = truitjes;
+                    //BestellingTruitjes.Items.Refresh();
+                    BestellingTruitjes.ItemsSource = null;
+                    BestellingTruitjes.ItemsSource = truitjes;
+                    MessageBox.Show("Uw trui is succesvol van de bestelling verwijdert");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
         private void WijzigBestellingButton_Click(object sender, RoutedEventArgs e)
         {

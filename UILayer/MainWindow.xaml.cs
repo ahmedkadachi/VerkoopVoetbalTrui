@@ -181,12 +181,37 @@ namespace UILayer
 
         private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (BestellingenAanpassen.SelectedItem == null)
+                {
+                    MessageBox.Show("Gelieve een bestelling te selecteren");
+                }
+                else
+                {
+                    bestellingManager.VerwijderBestelling((Bestelling)BestellingenAanpassen.SelectedItem);
+                    MessageBox.Show("Uw bestelling is succesvol verwijdert");
+                }
 
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void MenuItemUpdate_Click(object sender, RoutedEventArgs e)
         {
-            UpdateBestellingWindow bestellingw = new UpdateBestellingWindow((Bestelling)BestellingenAanpassen.SelectedItem);
-            bestellingw.ShowDialog();
+            if(BestellingenAanpassen.SelectedItem == null)
+            {
+                MessageBox.Show("Gelieve een bestelling te selecteren");
+            }
+            else
+            {
+                UpdateBestellingWindow bestellingw = new UpdateBestellingWindow((Bestelling)BestellingenAanpassen.SelectedItem);
+                bestellingw.ShowDialog();
+            }
+            
         }
 
 

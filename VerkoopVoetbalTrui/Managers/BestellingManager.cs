@@ -74,14 +74,31 @@ namespace BusinessLayer.Managers
                 {
                     throw new BestellingManagerException("VerwijderBestelling - bestaat niet");
                 }
-                else
-                {
-                    repo.VerwijderBestelling(bestelling);
-                }
+                if(repo.HeeftBestellingTruitjes(bestelling))
+                    throw new BestellingManagerException("VerwijderBestelling - Bestelling heeft truitjes");
+
+                repo.VerwijderBestelling(bestelling);
+                
             }
             catch (Exception ex)
             {
                 throw new BestellingManagerException("VerwijderBestelling " + ex);
+            }
+        }
+        public void VerwijderTruiVanBestelling(int bestellingId, int truiId)
+        {
+            try
+            {
+                if (!repo.BestaatBestelling(bestellingId))
+                {
+                    throw new BestellingManagerException("VerwijderBestelling - bestaat niet");
+                }
+                repo.VerwijderTruiVanBestelling(bestellingId, truiId);
+
+            }
+            catch (Exception ex)
+            {
+                throw new BestellingManagerException("VerwijderTruiVanBestelling " + ex);
             }
         }
         public void UpdateBestelling(Bestelling bestelling)

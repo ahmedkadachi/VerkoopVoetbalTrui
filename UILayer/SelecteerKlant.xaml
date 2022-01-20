@@ -37,6 +37,7 @@
                         <ListBox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Wijzig" Click="MenuItemWijzig_Click"/>
+                                
                             </ContextMenu>
                         </ListBox.ContextMenu>
                     </ListBox>
